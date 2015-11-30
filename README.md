@@ -6,7 +6,7 @@ Introduce the ES6's new Features
 
 ##1.let:用法类似于var，用于声明变量。
 ### 推荐使用星级：★★★
-### 运行脚本：`node src/1let.js`    
+#### 运行脚本：`node src/1let.js`    
 #### 特性
 * 块级作用域 
 * 暂时性死区  
@@ -55,7 +55,7 @@ function () {
 
 ##2.const 特性基本与let一致，但其作用是声明常量，仅能在声明的时候赋值
 ### 推荐使用星级：★★★  
-### 运行脚本：`node src/2const.js`    
+#### 运行脚本：`node src/2const.js`    
 
 ```javascript  
 if (true) {
@@ -76,10 +76,10 @@ let b = 1;
 window.b //
 ```  
 
-##3变量的解构赋值(Destructuring):按照一定模式，从数组和对象中提取值，对变量进行赋值    
+##3.变量的解构赋值(Destructuring):按照一定模式，从数组和对象中提取值，对变量进行赋值    
 ### 推荐使用星级：★★
 #### 注：在nodejs中查看in progress features `node --v8-options | grep "in progress"`
-### 运行脚本：`node --harmony_destructuring ./src/3destructuring.js`  
+#### 运行脚本：`node --harmony_destructuring ./src/3destructuring.js`  
 * 数组的解构赋值    
 ```javascript   
  let [x, y, ...z] = ['a'];
