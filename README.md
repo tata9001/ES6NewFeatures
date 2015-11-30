@@ -89,24 +89,24 @@ window.b //
 ```  
 * 对象的解构赋值    
 ```javascript   
-    var { foo, bar ,zoo = 'default',dog} = {foo: "aaa", bar: "bbb"};
-    console.log(foo);
-    console.log(bar);
-    console.log(zoo);
-    console.log(dog);
-    let { log, sin, cos ,PI } = Math;
-    console.log(sin(PI / 2));
+var { foo, bar ,zoo = 'default',dog} = {foo: "aaa", bar: "bbb"};
+console.log(foo);
+console.log(bar);
+console.log(zoo);
+console.log(dog);
+let { log, sin, cos ,PI } = Math;
+console.log(sin(PI / 2));
 ``` 
 * 字符串的解构赋值    
 ```javascript   
-    const [a, b, c, d, e] = 'hello';
-    console.log(a);
-    console.log(b);
-    console.log(c);
-    console.log(d);
-    console.log(e);
-    let {length : len} = 'hello';
-    console.log(len);
+const [a, b, c, d, e] = 'hello';
+console.log(a);
+console.log(b);
+console.log(c);
+console.log(d);
+console.log(e);
+let {length : len} = 'hello';
+console.log(len);
 ``` 
 * 数值和布尔值的解构赋值    
 ```javascript   
