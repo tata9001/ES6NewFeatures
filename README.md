@@ -147,9 +147,9 @@ for (let i = 0; i < text.length; i++) {
 for (let c of text) {
     console.log(c);
 }
- ```    
+```    
  * 字符串新增方法    
- ```javascript
+```javascript
 var s = 'CASA!';
 console.log(s.startsWith('CA'));
 console.log(s.endsWith('!'));
