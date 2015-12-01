@@ -125,3 +125,45 @@ let [x1,x2] = [[1, 2], [3, 4]].map(function ([a, b]) {
 log(x1);
 log(x2);
 ``` 
+##4.字符串的扩展
+### 推荐使用星级：★★★    
+#### 运行脚本：`node src/4string.js`    
+* 字符的Unicode表示法    
+```javascript
+console.log("\u0061");
+console.log("\uD842\uDFB7");
+ ```
+* 字符串的遍历器接口    
+```javascript
+for (let c of 'casa') {
+    console.log(c);
+}
+let text = "\uD842\uDFB7";
+for (let i = 0; i < text.length; i++) {
+    console.log(text[i]);
+}
+for (let c of text) {
+    console.log(c);
+}
+ ```    
+ * 字符串新增方法    
+ ```javascript
+var s = 'CASA!';
+console.log(s.startsWith('CA'));
+console.log(s.endsWith('!'));
+console.log(s.includes('AS'));
+console.log(s.repeat(3));
+  ```  
+* 模板字符串
+```javascript
+// 普通字符串
+console.log(`In JavaScript '\n' is a line-feed.`);
+// 多行字符串
+console.log`In JavaScript this is
+ not legal.`;
+console.log(`string text line 1
+string text line 2`);
+// 字符串中嵌入变量
+let name = "Bob", time = "today";
+console.log(`Hello ${name}, how are you ${time}?`);
+  ```    
