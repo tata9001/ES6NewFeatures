@@ -78,7 +78,8 @@ window.b //
 
 ##3.变量的解构赋值(Destructuring):按照一定模式，从数组和对象中提取值，对变量进行赋值    
 ### 推荐使用星级：★★
-#### 注：在nodejs中查看in progress features `node --v8-options | grep "in progress"`
+#### 注：在nodejs中查看in progress features     
+`node --v8-options | grep "in progress"`
 #### 运行脚本：`node --harmony_destructuring ./src/3destructuring.js`  
 * 数组的解构赋值    
 ```javascript   
@@ -127,6 +128,7 @@ log(x2);
 ``` 
 ##4.字符串的扩展
 ### 推荐使用星级：★★★    
+
 #### 运行脚本：`node src/4string.js`    
 * 字符的Unicode表示法    
 ```javascript
@@ -154,7 +156,7 @@ console.log(s.endsWith('!'));
 console.log(s.includes('AS'));
 console.log(s.repeat(3));
   ```  
-* 模板字符串
+* 模板字符串    
 ```javascript
 // 普通字符串
 console.log(`In JavaScript '\n' is a line-feed.`);
@@ -164,6 +166,14 @@ console.log`In JavaScript this is
 console.log(`string text line 1
 string text line 2`);
 // 字符串中嵌入变量
-let name = "Bob", time = "today";
+let name = 'Bob', time = 'today';
 console.log(`Hello ${name}, how are you ${time}?`);
-  ```    
+function fn() {
+    return "CASA";
+}
+console.log(`Hello ${fn()}`);
+//String.raw()
+console.log(`\n\ta`);
+console.log(String.raw`\n\ta`);
+console.log(String.raw({raw: `CS!` }, 'A', 'A'));
+```    
