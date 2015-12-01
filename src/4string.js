@@ -41,4 +41,4 @@ console.log(`Hello ${fn()}`);
 //String.raw()
 console.log(`\n\ta`);
 console.log(String.raw`\n\ta`);
-console.log(String.raw({raw: `CS!` }, 'A', 'A'));
+console.log(`\\n\\ta`);
