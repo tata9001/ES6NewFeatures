@@ -177,3 +177,55 @@ console.log(`\n\ta`);
 console.log(String.raw`\n\ta`);
 console.log(String.raw({raw: `CS!` }, 'A', 'A'));
 ```    
+
+##2.函数的扩展
+### 推荐使用星级：★★★  
+### 注:目前ES6的新特性，nodejs和最新的chrome还不支持，但babel可以支持转换 http://babeljs.io/repl/
+#### 运行脚本：`./src/5function.js `    
+* 函数参数的默认值   (chrome49)
+```javascript
+function print(x, y='CASA') {
+    console.log(x, y);
+}
+print('Hello');
+print('Hello', 'CASA');
+print('Hello', '');
+print('Hello', undefined);
+// 与解构赋值默认值结合使用
+function foo({x, y = 5}) {
+    console.log(x, y);
+}
+foo({}) // undefined, 5
+foo({x: 1}) // 1, 5
+foo({x: 1, y: 2}) // 1, 2
+  ```  
+* 可变参数(rest parameter)-(chrome47)    
+```javascript
+function add(...values) {
+    let sum = 0;
+    for (let val of values) {
+        sum += val;
+    }
+    return sum;
+}
+console.log(add(1,2,3,4));
+  ```  
+* 扩展运算符(spread):  rest的逆运算,可以用来替换apply    
+```javascript
+console.log(...'casa');
+console.log(...[1, 2, 3]);
+//babel转换后
+console.log.apply(console, [1, 2, 3]);
+  ```  
+* name属性:该函数的函数名    
+```javascript
+function foo() {}
+console.log(foo.name) // "foo"
+var func1 = function () {};
+//ES6
+console.log(func1.name) // "func1"
+//ES5
+console.log(func1.name) // ""
+var f = v => v;
+console.log(f.name) // ""
+  ```  
