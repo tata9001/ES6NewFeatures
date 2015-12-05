@@ -178,11 +178,11 @@ console.log(String.raw`\n\ta`);
 console.log(String.raw({raw: `CS!` }, 'A', 'A'));
 ```    
 
-##2.函数的扩展
+##5.函数的扩展
 ### 推荐使用星级：★★★  
 ### 注:目前ES6的新特性，nodejs和最新的chrome还不支持，但babel可以支持转换 http://babeljs.io/repl/
 #### 运行脚本：`./src/5function.js `    
-* 函数参数的默认值   (chrome49)
+* 函数参数的默认值   (chrome49)    
 ```javascript
 function print(x, y='CASA') {
     console.log(x, y);
@@ -228,4 +228,130 @@ console.log(func1.name) // "func1"
 console.log(func1.name) // ""
 var f = v => v;
 console.log(f.name) // ""
-  ```  
+```
+
+* 箭头函数（=>）:用于定义函数,简化回调函数，类似于java8中的(->)    
+```javascript
+function foo() {}
+console.log(foo.name) // "foo"
+var func1 = function () {};
+//ES6
+console.log(func1.name) // "func1"
+//ES5
+console.log(func1.name) // ""
+var f = v => v;
+console.log(f.name) // ""
+  ```
+    ####注：箭头函数的注意事项
+    * 固化this对象，它里面的this对象是定义时所在的对象，而不是使用时所在的对象    
+       ```javascript
+       function foo() {
+           console.log("foo -- id:",this.id);
+           setTimeout( function() {
+               console.log("function -- id:", this.id);
+           },100);
+           let that = this;
+           setTimeout( function() {
+               console.log("function that -- id:", that.id);
+           },100);
+           setTimeout( () => {
+               console.log("=> -- id:", this.id);
+           },100);
+       }
+       foo.call( { id: 42 } );
+       ```
+    * 不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。    
+    * 不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。    
+    * 不可以使用yield命令，因此箭头函数不能用作Generator函数。    
+* 尾调用优化(node/chrome还都未实现):只保留内层函数的调用帧,避免stack overflow   
+```javascript
+function factorial(n, acc) {
+    'use strict';
+    if (n <= 1) return acc;
+    return factorial(n - 1, n * acc);
+}
+console.log(factorial(100000,1));
+```
+##6对象的扩展
+### 推荐使用星级：★★★  
+#### 运行脚本：`./src/6object.js `    
+* 属性的简洁表示法    
+```javascript
+let name = 'casa';
+let casa = {
+    name,
+    sayName() {
+        console.log('hello,',this.name);
+    }
+};
+casa.sayName();
+```
+* 属性名表达式
+```javascript
+let lastWord = 'last word';
+let obj = {
+    'first word': 'hello',
+    [lastWord]: 'casa',
+    ['h'+'ello']() {
+        return this['first word'] + ' ' + this[lastWord];
+    }
+};
+console.log(obj.hello());
+```
+* 新增方法    
+```javascript
+// 严格相等，类似于===
+console.log(Object.is('',''));
+console.log(Object.is({},{}));
+//  属性复制，类似于$.extend();
+var target = { a: 1 };
+var source1 = { b: 2 };
+var source2 = { test(){
+    console.log('source2');
+}};
+Object.assign(target, source1, source2);
+target.test();
+```
+## Symbol:ES6引入的第七种原始数据类型，用来解决属性名的冲突。
+### 推荐使用星级：★    
+#### 运行脚本：`./src/7symbol.js `    
+```javascript
+let s1 = Symbol();
+let s2 = Symbol("foo");
+let s3 = Symbol("foo");
+let s4 = Symbol.for("doo");
+let s5 = Symbol.for("doo");
+let s6 = Symbol("doo");
+let k2 = Symbol.keyFor(s2);
+let k4 = Symbol.keyFor(s4);
+let k6 = Symbol.keyFor(s6);
+console.log("typeof s1: ",typeof s1);
+console.log("s2: ",s2);
+console.log('s2===s3',s2===s3);
+console.log('s4===s5',s4===s5);
+console.log('s5===s6',s5===s6);
+console.log("k3 foo: ",k4);
+console.log("k3 doo: ",k4);
+console.log("k4 doo: ",k6);
+let count = Symbol('count');
+let cc = {
+    name:'casa',
+    [count]:0,
+    count:0,
+    add(n){
+       this[count] += n ;
+    }
+};
+cc.add(1);
+console.log('cc count undefined:'+cc.count);
+console.log('cc count:'+cc[count]);
+console.log('cc OwnPropertyNames:'+Object.getOwnPropertyNames(cc));
+console.log('cc OwnPropertySymbols:'+Object.getOwnPropertySymbols(cc));
+const levels = {
+    DEBUG: Symbol('debug'),
+    INFO: Symbol('info'),
+    WARN: Symbol('warn'),
+};
+log(levels.DEBUG, 'debug message');
+log(levels.INFO, 'info message');
+```
