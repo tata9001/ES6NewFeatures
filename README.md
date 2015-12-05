@@ -272,7 +272,7 @@ function factorial(n, acc) {
 }
 console.log(factorial(100000,1));
 ```
-##6对象的扩展
+##6.对象的扩展
 ### 推荐使用星级：★★★  
 #### 运行脚本：`./src/6object.js `    
 * 属性的简洁表示法    
@@ -312,7 +312,7 @@ var source2 = { test(){
 Object.assign(target, source1, source2);
 target.test();
 ```
-## Symbol:ES6引入的第七种原始数据类型，用来解决属性名的冲突。
+## 7.Symbol:ES6引入的第七种原始数据类型，用来解决属性名的冲突。
 ### 推荐使用星级：★    
 #### 运行脚本：`./src/7symbol.js `    
 ```javascript
