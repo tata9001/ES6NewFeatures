@@ -245,7 +245,7 @@ console.log(f.name) // ""
   ```
     ####注：箭头函数的注意事项
     * 固化this对象，它里面的this对象是定义时所在的对象，而不是使用时所在的对象    
-    ```javascript
+  ```javascript
        function foo() {
            console.log("foo -- id:",this.id);
            setTimeout( function() {
@@ -260,7 +260,7 @@ console.log(f.name) // ""
            },100);
        }
        foo.call( { id: 42 } );
-    ```
+  ```
     * 不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。    
     * 不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。    
     * 不可以使用yield命令，因此箭头函数不能用作Generator函数。    
@@ -425,13 +425,13 @@ map.forEach(function(value, key, map){
     ```
 * for...of循环:借鉴了Java、Python语法,引入其作为遍历所有实现Iterator数据结构的统一的方法。
     ####遍历语法比较：
-    * 原始写法    
+    * 原始写法 :麻烦，但性能最好。   
     ```javascript
     for (var index = 0; index < myArray.length; index++) {
       console.log(myArray[index]);
     }
     ```
-    * 数组提供内置的forEach方法: 无法中途跳出forEach循环，break命令或return命令都不能奏效；单行语句循环
+    * forEach方法: 无法中途跳出forEach循环，break命令或return命令都不能奏效；单行语句循环与(=>)配合；
     ```javascript
     myArray.forEach(function (value) {
       console.log(value);
