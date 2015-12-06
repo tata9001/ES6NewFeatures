@@ -126,6 +126,7 @@ let [x1,x2] = [[1, 2], [3, 4]].map(function ([a, b]) {
 log(x1);
 log(x2);
 ``` 
+
 ##4.字符串的扩展
 ### 推荐使用星级：★★★    
 
@@ -244,7 +245,7 @@ console.log(f.name) // ""
   ```
     ####注：箭头函数的注意事项
     * 固化this对象，它里面的this对象是定义时所在的对象，而不是使用时所在的对象    
-       ```javascript
+    ```javascript
        function foo() {
            console.log("foo -- id:",this.id);
            setTimeout( function() {
@@ -259,7 +260,7 @@ console.log(f.name) // ""
            },100);
        }
        foo.call( { id: 42 } );
-       ```
+    ```
     * 不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。    
     * 不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。    
     * 不可以使用yield命令，因此箭头函数不能用作Generator函数。    
@@ -272,6 +273,7 @@ function factorial(n, acc) {
 }
 console.log(factorial(100000,1));
 ```
+
 ##6.对象的扩展
 ### 推荐使用星级：★★★  
 #### 运行脚本：`./src/6object.js `    
@@ -312,6 +314,7 @@ var source2 = { test(){
 Object.assign(target, source1, source2);
 target.test();
 ```
+
 ## 7.Symbol:ES6引入的新的原始数据类型，表示独一无二的值，可以用来做对象的属性名，防止属性名冲突。
 ### 推荐使用星级：★    
 #### 运行脚本：`./src/7symbol.js `    
@@ -351,7 +354,8 @@ const levels = {
 log(levels.DEBUG, 'debug message');
 log(levels.INFO, 'info message');
 ```
-## 8.Set和Map数据结构
+
+## 8.Set和Map数据结构:JavaScript原有的表示“集合”的数据结构，主要是数组（Array）和对象（Object），ES6又添加了Map和Set。
 ### 推荐使用星级：★★    
 #### 运行脚本：`./src/8setMap.js ` 
 * Set 类似于数组，但是成员的值都是唯一的，没有重复的值。   
@@ -387,3 +391,61 @@ map.forEach(function(value, key, map){
 ```
 * WeakSet和WeakMap:与Set和Map唯一的区别是它只接受对象作为键名（null除外），
 不接受其他类型的值作为键名，而且键名所指向的对象，不计入垃圾回收机制。不提供size属性和遍历的方法；
+
+## 9.Iterator和for...of循环
+### 推荐使用星级：★★    
+#### 运行脚本：`./src/9itertor.js ` 
+
+* 迭代器（Iterator）是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署Iterator接口，就可以完成遍历操作。
+    实现该接口的对象有Array,Set,Map,String,Generator函数对象，以及某些类数组对象。
+    ####接口方法：
+    * next():返回值格式{ value: "a", done: false }
+    * return(): 使用场合如果for...of循环提前退出（通常是因为出错，或者有break语句或continue语句），
+    就会调用return方法。
+    * throw():主要是配合Generator函数使用;
+    
+    ####作用：
+    * 为各种数据结构，提供一个统一的、简便的访问接口；
+    * 使得数据结构的成员能够按某种次序排列；
+    * ES6创造了一种新的遍历命令for...of循环，Iterator接口主要供for...of消费。
+        
+    ```javascript
+    let iterable = {
+        0: 'a',
+        1: 'b',
+        2: 'c',
+        length: 3,
+        [Symbol.iterator]: Array.prototype[Symbol.iterator]
+    };
+    for (let item of iterable) {
+        console.log(item); // 'a', 'b', 'c'
+    }
+    // 判断对象是否具有iterator接口
+    console.log(typeof iterable[Symbol.iterator] === 'function');
+    ```
+* for...of循环:借鉴了Java、Python语法,引入其作为遍历所有实现Iterator数据结构的统一的方法。
+    ####遍历语法比较：
+    * 原始写法    
+    ```javascript
+    for (var index = 0; index < myArray.length; index++) {
+      console.log(myArray[index]);
+    }
+    ```
+    * 数组提供内置的forEach方法: 无法中途跳出forEach循环，break命令或return命令都不能奏效；单行语句循环
+    ```javascript
+    myArray.forEach(function (value) {
+      console.log(value);
+    });
+    ```
+    * for...in :不仅遍历数字键名，还会遍历手动添加的其他键，甚至包括原型链上的键;会以任意顺序遍历键名。  
+    ```javascript
+    for (var index in myArray) {
+      console.log(myArray[index]);
+    }
+    ```
+    * for...of :简洁语法;可以与break、continue和return配合使用;但不能提供index，性能相比原始的稍差。  
+    ```javascript
+    for (var index in myArray) {
+      console.log(myArray[index]);
+    }
+    ```
