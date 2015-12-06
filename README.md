@@ -182,7 +182,7 @@ console.log(String.raw({raw: `CS!` }, 'A', 'A'));
 ##5.函数的扩展
 ### 推荐使用星级：★★★  
 ### 注:目前ES6的新特性，nodejs和最新的chrome还不支持，但babel可以支持转换 http://babeljs.io/repl/
-#### 运行脚本：`./src/5function.js `    
+#### 运行脚本：`node ./src/5function.js `    
 * 函数参数的默认值   (chrome49)    
 ```javascript
 function print(x, y='CASA') {
@@ -276,7 +276,7 @@ console.log(factorial(100000,1));
 
 ##6.对象的扩展
 ### 推荐使用星级：★★★  
-#### 运行脚本：`./src/6object.js `    
+#### 运行脚本：`node ./src/6object.js `    
 * 属性的简洁表示法    
 ```javascript
 let name = 'casa';
@@ -317,7 +317,7 @@ target.test();
 
 ## 7.Symbol:ES6引入的新的原始数据类型，表示独一无二的值，可以用来做对象的属性名，防止属性名冲突。
 ### 推荐使用星级：★    
-#### 运行脚本：`./src/7symbol.js `    
+#### 运行脚本：`node ./src/7symbol.js `    
 ```javascript
 // 基本用法
 let s1 = Symbol();
@@ -357,7 +357,7 @@ log(levels.INFO, 'info message');
 
 ## 8.Set和Map数据结构:JavaScript原有的表示“集合”的数据结构，主要是数组（Array）和对象（Object），ES6又添加了Map和Set。
 ### 推荐使用星级：★★    
-#### 运行脚本：`./src/8setMap.js ` 
+#### 运行脚本：`node ./src/8setMap.js ` 
 * Set 类似于数组，但是成员的值都是唯一的，没有重复的值。   
 ```javascript
 console.log('set.size',set.size);
@@ -394,7 +394,7 @@ map.forEach(function(value, key, map){
 
 ## 9.Iterator和for...of循环
 ### 推荐使用星级：★★    
-#### 运行脚本：`./src/9itertor.js ` 
+#### 运行脚本：`node ./src/9itertor.js ` 
 
 * 迭代器（Iterator）是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署Iterator接口，就可以完成遍历操作。
     实现该接口的对象有Array,Set,Map,String,Generator函数对象，以及某些类数组对象。
@@ -431,7 +431,7 @@ map.forEach(function(value, key, map){
       console.log(myArray[index]);
     }
     ```
-    * forEach方法: 无法中途跳出forEach循环，break命令或return命令都不能奏效；单行语句循环与(=>)配合；
+    * forEach方法: 无法中途跳出forEach循环，break命令或return命令都不能奏效；单行语句循环与(=>)配合；    
     ```javascript
     myArray.forEach(function (value) {
       console.log(value);
@@ -449,3 +449,55 @@ map.forEach(function(value, key, map){
       console.log(myArray[index]);
     }
     ```
+
+##10.Class:ES6的Class只是ES5的构造函数的一层包装
+### 推荐使用星级：★★★    
+#### 运行脚本：`node --harmony_new_target ./src/10class.js` 
+* 基本语法    
+```javascript
+// ES5:
+function Point(x,y){
+  this.x = x;
+  this.y = y;
+}
+Point.prototype.toString = function () {
+  return '(' + this.x + ', ' + this.y + ')';
+}
+// ES6:定义类
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  toString() {
+    return '(' + this.x + ', ' + this.y + ')';
+  }
+  static getClassName(){
+          return 'Point';
+  }
+}
+console.log(new Point(10,12).toString());
+console.log(Point.getClassName());
+```
+* constructor方法:通过new命令生成对象实例时，自动调用该方法。但只能有一个constructor方法;
+* static 方法;
+* 不存在变量提升(hoist);    
+```javascript
+new Foo(); // ReferenceError
+class Foo {}
+```
+* 严格模式:默认是严格模式，所以不用写‘use strict’;
+* 继承(Extend);     
+```javascript
+class ColorPoint extends Point {
+    constructor(x, y, color) {
+        super(x, y); // 调用父类的constructor(x, y)
+        this.color = color;
+    }
+    toString() {
+        return this.color + ' ' + super.toString(); // 调用父类的toString()
+    }
+}
+console.log(new ColorPoint(10,12,'red').toString());
+```
+* new.target属性:返回new命令作用于的那个构造函数。如果构造函数不是通过new命令调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的。
