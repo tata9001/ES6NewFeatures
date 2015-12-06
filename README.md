@@ -312,32 +312,27 @@ var source2 = { test(){
 Object.assign(target, source1, source2);
 target.test();
 ```
-## 7.Symbol:ES6引入的第七种原始数据类型，用来解决属性名的冲突。
+## 7.Symbol:ES6引入的新的原始数据类型，表示独一无二的值，可以用来做对象的属性名，防止属性名冲突。
 ### 推荐使用星级：★    
 #### 运行脚本：`./src/7symbol.js `    
 ```javascript
+// 基本用法
 let s1 = Symbol();
 let s2 = Symbol("foo");
 let s3 = Symbol("foo");
 let s4 = Symbol.for("doo");
 let s5 = Symbol.for("doo");
 let s6 = Symbol("doo");
-let k2 = Symbol.keyFor(s2);
-let k4 = Symbol.keyFor(s4);
-let k6 = Symbol.keyFor(s6);
 console.log("typeof s1: ",typeof s1);
 console.log("s2: ",s2);
 console.log('s2===s3',s2===s3);
 console.log('s4===s5',s4===s5);
 console.log('s5===s6',s5===s6);
-console.log("k3 foo: ",k4);
-console.log("k3 doo: ",k4);
-console.log("k4 doo: ",k6);
+// 用作属性名
 let count = Symbol('count');
 let cc = {
     name:'casa',
     [count]:0,
-    count:0,
     add(n){
        this[count] += n ;
     }
@@ -347,6 +342,7 @@ console.log('cc count undefined:'+cc.count);
 console.log('cc count:'+cc[count]);
 console.log('cc OwnPropertyNames:'+Object.getOwnPropertyNames(cc));
 console.log('cc OwnPropertySymbols:'+Object.getOwnPropertySymbols(cc));
+// 用作常量，有点枚举的意思
 const levels = {
     DEBUG: Symbol('debug'),
     INFO: Symbol('info'),
@@ -355,3 +351,4 @@ const levels = {
 log(levels.DEBUG, 'debug message');
 log(levels.INFO, 'info message');
 ```
+## 8.Set和Map数据结构
