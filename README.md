@@ -352,3 +352,38 @@ log(levels.DEBUG, 'debug message');
 log(levels.INFO, 'info message');
 ```
 ## 8.Set和Map数据结构
+### 推荐使用星级：★★    
+#### 运行脚本：`./src/8setMap.js ` 
+* Set 类似于数组，但是成员的值都是唯一的，没有重复的值。   
+```javascript
+console.log('set.size',set.size);
+set.add(3);
+console.log(set.has(1));
+console.log(set.delete(1));
+set.forEach(x => console.log('forEach:',x));
+for(let x of set){
+    console.log('for of',x);
+}
+console.log('set.keys():',set.keys());
+console.log('set.values():',set.values());
+console.log('set.entries():',set.entries());
+```
+* Map 可以用对象当键的键值对象集合    
+```javascript
+let map = new Map();
+map.set('foo', true);
+map.set('bar', false);
+map.set(1, 'casa');
+console.log('map.size:',map.size);
+console.log('map.get():',map.get(1));
+console.log('map.has():',map.has(1));
+console.log('map.delete():',map.delete(1));
+for (let entry of map) {
+    console.log(entry[0], entry[1]);
+}
+map.forEach(function(value, key, map){
+    console.log("Key: %s, Value: %s", key, value);
+});
+```
+* WeakSet和WeakMap:与Set和Map唯一的区别是它只接受对象作为键名（null除外），
+不接受其他类型的值作为键名，而且键名所指向的对象，不计入垃圾回收机制。不提供size属性和遍历的方法；
