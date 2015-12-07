@@ -501,3 +501,29 @@ class ColorPoint extends Point {
 console.log(new ColorPoint(10,12,'red').toString());
 ```
 * new.target属性:返回new命令作用于的那个构造函数。如果构造函数不是通过new命令调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的。
+```javascript
+// 传统的构造器
+function Person(name) {
+    if (new.target !== undefined) {
+        this.name = name;
+    } else {
+        throw new Error('必须使用new生成实例');
+    }
+}
+new Person('wy');
+Person(0);
+//ES6的构造器
+class Rectangle {
+    constructor(length, width) {
+        console.log(new.target === Rectangle);
+    }
+}
+class Square extends Rectangle {
+    constructor(length) {
+        super(length, length);
+    }
+}
+var obj1 = new Rectangle(3,2); //  true
+var obj2 = new Square(3); //  false
+```
+

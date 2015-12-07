@@ -37,3 +37,15 @@ function Person(name) {
 }
 new Person('wy');
 Person(0);
+class Rectangle {
+    constructor(length, width) {
+        console.log(new.target === Rectangle);
+    }
+}
+class Square extends Rectangle {
+    constructor(length) {
+        super(length, length);
+    }
+}
+var obj1 = new Rectangle(3,2); //  true
+var obj2 = new Square(3); //  false
