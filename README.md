@@ -529,8 +529,13 @@ var obj2 = new Square(3); //  false
 
 ## 13.Module ：原生的模块化，主要有export和import两个命令构成，用于替代CommonJS
 ### 推荐使用星级：★★★    
-#### 运行脚本：`node  ./build/13module.js` 
+#### 运行脚本：
+    `babel src/13export.js -o build/13export.js`    
+    `babel src/13extends.js -o build/13extends.js `    
+    `babel src/13module.js -o build/13module.js`    
+    `node  ./build/13module.js`    
 * export命令:一个模块就是一个独立的文件，内部的变量需要由export声明，外部才能使用到；
+* import命令:用于加载profile.js文件，并从中输入变量。
 ```javascript
 // 13exports.js
  export let firstName = 'wang';
