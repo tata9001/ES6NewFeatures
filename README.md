@@ -527,3 +527,57 @@ var obj1 = new Rectangle(3,2); //  true
 var obj2 = new Square(3); //  false
 ```
 
+## 13.Module ：原生的模块化，主要有export和import两个命令构成，用于替代CommonJS
+### 推荐使用星级：★★★    
+#### 运行脚本：`node  ./build/13module.js` 
+* export命令:一个模块就是一个独立的文件，内部的变量需要由export声明，外部才能使用到；
+```javascript
+// 13exports.js
+ export let firstName = 'wang';
+ let lastName = 'yun';
+ function multiply (x, y) {
+     return x * y;
+ };
+ class Point {
+     constructor(x, y) {
+         this.x = x;
+         this.y = y;
+     }
+     toString() {
+         return '(' + this.x + ', ' + this.y + ')';
+     }
+     static getClassName(){
+         return 'Point';
+     }
+ }
+ // 默认导出
+ export default function defaultFunction(){
+     console.log('I am defaulit export');
+ }
+ export {lastName,multiply,Point}
+```
+```javascript
+// 13extends.js
+//模块的继承
+export * from './13export.js';
+export const PI = Math.PI;
+```
+```javascript
+// 13module.js
+//模块的继承
+//  普通引入
+import {lastName,multiply,Point} from './13export.js';
+// 整体引入
+//import * from './13export.js';
+// 默认引入
+import defaultExport from './13export.js';
+console.log(lastName);
+console.log(multiply(4,9));
+console.log(new Point(1,3))
+defaultExport();
+// 测试引入模块继承
+import {firstName,PI} from './13extends.js'
+console.log(PI);
+console.log(firstName);
+```
+
