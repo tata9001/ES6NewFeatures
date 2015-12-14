@@ -1,19 +1,7 @@
 'use strict'
 
-// 字符的Unicode表示法
-console.log("\u0061");
-console.log("\uD842\uDFB7");
-
-for (let c of 'casa') {
-    console.log(c);
-}
 //字符串的遍历器接口
-let text = "\uD842\uDFB7";
-for (let i = 0; i < text.length; i++) {
-    console.log(text[i]);
-}
-
-for (let c of text) {
+for (let c of 'casa') {
     console.log(c);
 }
 //字符串新增方法
