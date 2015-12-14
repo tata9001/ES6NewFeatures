@@ -137,13 +137,6 @@ log(x2);
 for (let c of 'casa') {
     console.log(c);
 }
-let text = "\uD842\uDFB7";
-for (let i = 0; i < text.length; i++) {
-    console.log(text[i]);
-}
-for (let c of text) {
-    console.log(c);
-}
 ```    
  * 字符串新增方法    
 ```javascript
@@ -228,27 +221,28 @@ let sum = (num1, num2) => num1 + num2;
 console.log(sum(1,2));
 [1,2,3].map(x => console.log(x * x));
   ```
-     ####注：箭头函数的注意事项
-     * 固化this对象，它里面的this对象是定义时所在的对象，而不是使用时所在的对象 
- ```javascript
-       function foo() {
-           console.log("foo -- id:",this.id);
-           setTimeout( function() {
-               console.log("function -- id:", this.id);
-           },100);
-           let that = this;
-           setTimeout( function() {
-               console.log("function that -- id:", that.id);
-           },100);
-           setTimeout( () => {
-               console.log("=> -- id:", this.id);
-           },100);
-       }
-       foo.call( { id: 42 } );
-  ```
-     * 不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。    
-     * 不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。    
-     * 不可以使用yield命令，因此箭头函数不能用作Generator函数。    
+####注：箭头函数的注意事项
+    * 固化this对象，它里面的this对象是定义时所在的对象，而不是使用时所在的对象 
+```javascript
+   function foo() {
+       console.log("foo -- id:",this.id);
+       setTimeout( function() {
+           console.log("function -- id:", this.id);
+       },100);
+       let that = this;
+       setTimeout( function() {
+           console.log("function that -- id:", that.id);
+       },100);
+       setTimeout( () => {
+           console.log("=> -- id:", this.id);
+       },100);
+   }
+   foo.call( { id: 42 } );
+```
+    * 不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。    
+    * 不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。    
+    * 不可以使用yield命令，因此箭头函数不能用作Generator函数。    
+ 
 * 尾调用优化(node/chrome还都未实现):只保留内层函数的调用帧,避免stack overflow(就当不存在吧)   
 ```javascript
 function factorial(n, acc) {
