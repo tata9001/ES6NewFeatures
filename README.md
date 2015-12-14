@@ -527,6 +527,162 @@ var obj1 = new Rectangle(3,2); //  true
 var obj2 = new Square(3); //  false
 ```
 
+## 11.Generator 函数 ：ES6提供的一种异步编程解决方案，语法行为与传统函数完全不同。
+### 协程
+    传统的编程语言，早有异步编程的解决方案（其实是多任务的解决方案）。其中有一种叫做"协程"（coroutine），意思是多个线程互相协作，完成异步任务。
+    
+    协程有点像函数，又有点像线程。它的运行流程大致如下。
+    
+    第一步，协程A开始执行。
+    第二步，协程A执行到一半，进入暂停，执行权转移到协程B。
+    第三步，（一段时间后）协程B交还执行权。
+    第四步，协程A恢复执行。
+    上面流程的协程A，就是异步任务，因为它分成两段（或多段）执行
+### 定义
+    实质上：Generator函数是协程在ES6的实现，最大特点就是可以交出函数的执行权（即暂停执行）。它是一个封装的异步任务，或者说是异步任务的容器。
+    语法上：它一个状态机，封装了多个内部状态，也是一个遍历器对象生成函数。执行它会返回一个遍历器对象，可以依次遍历Generator函数内部的每一个状态。
+    形式上：是一个普通函数，有两个特征：一是，function命令与函数名之间有一个星号；二是，函数体内部使用yield语句，定义不同的内部状态
+### 推荐使用星级：★ 
+#### 运行脚本：`node ./src/11generator.js`
+```javascript
+// 普通调用
+function* helloWorldGenerator() {
+    console.log('hello 前面---');
+    yield 'hello';
+    console.log('casa 前面---');
+    let nextWord = yield 'casa'
+    console.log(nextWord);
+    console.log('ending 前面---');
+    return 'ending';
+}
+let hw = helloWorldGenerator();
+setTimeout(()=>console.log(hw.next()),1000);
+setTimeout(()=>console.log(hw.next()),2000);
+setTimeout(()=>console.log(hw.next('tw')),3000);
+setTimeout(()=>console.log(hw.next()),4000);
+//  for of 调用
+for (let v of helloWorldGenerator()) {
+    console.log("value:" + v);
+}
+// return
+let hw2 = helloWorldGenerator();
+console.log(hw2.next());
+console.log(hw2.return("returnedData"));
+// throw
+function* g() {
+    while (true) {
+        try {
+            yield '';
+        } catch (e) {
+            if (e != 'a') throw e;
+            console.log('内部捕获', e);
+        }
+    }
+};
+var i = g();
+i.next();
+try {
+    i.throw('a');
+    i.throw('b');
+} catch (e) {
+    console.log('外部捕获', e);
+}
+```    
+
+* Generator与状态机 :Generator是实现状态机的最佳结构.   
+```javascript
+let ticking = true;
+let es5clock = function() {
+    if (ticking)
+        console.log('Tick!');
+    else
+        console.log('Tock!');
+    ticking = !ticking;
+}
+let es6clock = function*(_) {
+    while (true) {
+        yield _;
+        console.log('Tick!');
+        yield _;
+        console.log('Tock!');
+    }
+};
+```
+
+## 12.Promise对象 ：用来传递异步操作的消息,它代表了某个未来才会知道结果的事件（通常是一个异步操作），并且这个事件提供统一的API，可供进一步处理，有了Promise对象，就可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数。
+### 推荐使用星级：★★★    
+#### 运行脚本：`node ./src/12promise.js`
+#### 两个特点
+    *（1）对象的状态不受外界影响。Promise对象代表一个异步操作，有三种状态：Pending（进行中）、Resolved（已完成，又称Fulfilled）和Rejected（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。这也是Promise这个名字的由来，它的英语意思就是“承诺”，表示其他手段无法改变。
+    *（2）一旦状态改变，就不会再变，任何时候都可以得到这个结果。Promise对象的状态改变，只有两种可能：从Pending变为Resolved和从Pending变为Rejected。只要这两种情况发生，状态就凝固了，不会再变了，会一直保持这个结果。就算改变已经发生了，你再对Promise对象添加回调函数，也会立即得到这个结果。这与事件（Event）完全不同，事件的特点是，如果你错过了它，再去监听，是得不到结果的。
+```javascript
+let log = console.log;
+function async(arg, callBack) {
+    setTimeout(function () {
+        log('result ' + arg);
+        callBack();
+    }, 1000);
+};
+function validate() {
+    log("Wait for it ...");
+    async('first', function () {
+        async('second', function () {
+            async('third', function () {
+                async('fourth', function () {
+                });
+            });
+        });
+    });
+};
+validate();
+```    
+```javascript
+function asyncPromise(arg) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            if(arg == 'first' || arg == 'third'){
+                resolve('validatePromise result ' + arg);
+            } else{
+                reject(arg + " error");
+            }
+        }, 1000);
+    });
+};
+function validatePromise() {
+    log("validatePromise Wait for it ...");
+    asyncPromise('first').then((resp)  => {
+        log(resp);
+        return asyncPromise('second');
+    }).then((resp) => {
+        log(resp);
+        return asyncPromise('third')
+    },(err) => {
+        log("error:" + err);
+        return asyncPromise('third');
+    }).then((resp)  => {
+        log(resp);
+        return asyncPromise('fourth');
+    }).then((resp) => {
+        log(resp);
+    }).catch(log);
+};
+validatePromise();
+validatePromise();
+```
+* 其他方法：    
+    Promise.all()：var p = Promise.all([p1,p2,p3]);全resolve后才resolve,一个reject马上reject;    
+    Promise.race()：var p = Promise.race([p1,p2,p3]);只要一个reject/resolve马上reject/resolve;    
+    Promise.resolve()：将现有对象转为Promise对象对象状态返回状态为resolve;    
+       ```javascript
+       var p = Promise.resolve('foo')
+       // 等价于
+       //new Promise(resolve => resolve('foo'))
+       p.then(function (s){
+         console.log(s)
+       });
+       ```    
+    Promise.reject()：将现有对象转为Promise对象对象状态返回状态为reject;    
+
 ## 13.Module ：原生的模块化，主要有export和import两个命令构成，用于替代CommonJS
 ### 推荐使用星级：★★★    
 #### 运行脚本：
@@ -585,4 +741,3 @@ import {firstName,PI} from './13extends.js'
 console.log(PI);
 console.log(firstName);
 ```
-
