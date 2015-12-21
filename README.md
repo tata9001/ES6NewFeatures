@@ -682,7 +682,7 @@ Person(0);
 //ES6的构造器
 class Rectangle {
     constructor(length, width) {
-        console.log(new.target === Rectangle);
+        console.log(new.target);
     }
 }
 class Square extends Rectangle {
@@ -690,8 +690,8 @@ class Square extends Rectangle {
         super(length, length);
     }
 }
-var obj1 = new Rectangle(3,2); //  true
-var obj2 = new Square(3); //  false
+var obj1 = new Rectangle(3,2); // Rectangle 
+var obj2 = new Square(3); //  Square
 ```
 
 
