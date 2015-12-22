@@ -695,15 +695,12 @@ var obj2 = new Square(3); //  Square
 ```
 
 
-## 13.Module ：原生的模块化，主要有export和import两个命令构成，用于替代CommonJS
+## 13.Module ：原生的模块化，用于替代CommonJS/AMD，主要有export和import两个命令构成
 ### 推荐使用星级：★★★    
 #### 运行脚本：
-    babel src/13export.js -o build/13export.js    
-    babel src/13extends.js -o build/13extends.js    
-    babel src/13module.js -o build/13module.js    
-    node  ./build/13module.js    
+     `babel-node ./src/13module.js`    
 * export命令:一个模块就是一个独立的文件，内部的变量需要由export声明，外部才能使用到；
-* import命令:用于加载profile.js文件，并从中输入变量。
+* import命令:用于加载模块文件，并从中引入变量。
 ```javascript
 // 13exports.js
  export let firstName = 'wang';
@@ -730,12 +727,6 @@ var obj2 = new Square(3); //  Square
  export {lastName,multiply,Point}
 ```
 ```javascript
-// 13extends.js
-//模块的继承
-export * from './13export.js';
-export const PI = Math.PI;
-```
-```javascript
 // 13module.js
 //模块的继承
 //  普通引入
@@ -748,10 +739,6 @@ console.log(lastName);
 console.log(multiply(4,9));
 console.log(new Point(1,3))
 defaultExport();
-// 测试引入模块继承
-import {firstName,PI} from './13extends.js'
-console.log(PI);
-console.log(firstName);
 ```
 
 ## 14.其他：
