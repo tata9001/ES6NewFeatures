@@ -654,7 +654,7 @@ new Foo(); // ReferenceError
 class Foo {}
 ```
 * 严格模式:默认是严格模式，所以不用写‘use strict’;
-* 继承(Extend);     
+* 继承(Extend):super关键字;     
 ```javascript
 class ColorPoint extends Point {
     constructor(x, y, color) {

@@ -49,3 +49,4 @@ class Square extends Rectangle {
 }
 var obj1 = new Rectangle(3,2); //
 var obj2 = new Square(3); //
+
