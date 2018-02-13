@@ -2,18 +2,45 @@ pipeline {
   agent any
   stages {
     stage('test') {
-      steps {
-        sh 'echo test'
+      parallel {
+        stage('test') {
+          steps {
+            sh 'echo test'
+          }
+        }
+        stage('test2') {
+          steps {
+            echo 'tes2'
+          }
+        }
       }
     }
     stage('push') {
-      steps {
-        echo 'push'
+      parallel {
+        stage('push') {
+          steps {
+            echo 'push'
+          }
+        }
+        stage('push2') {
+          steps {
+            echo 'push2'
+          }
+        }
       }
     }
     stage('deploy') {
-      steps {
-        echo 'deploy'
+      parallel {
+        stage('deploy') {
+          steps {
+            echo 'deploy'
+          }
+        }
+        stage('deploy2') {
+          steps {
+            echo 'deploy2'
+          }
+        }
       }
     }
   }
