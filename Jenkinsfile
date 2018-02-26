@@ -43,5 +43,10 @@ pipeline {
         }
       }
     }
+    stage('dd') {
+      steps {
+        echo 'cc'
+      }
+    }
   }
 }
