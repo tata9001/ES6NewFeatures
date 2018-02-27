@@ -43,10 +43,10 @@ pipeline {
         }
       }
     }
-    stage('dd') {
+    stage('test2') {
       steps {
-        echo 'cc'
-        input(message: 'test', id: 'ts', ok: 'ok', submitter: 'wy', submitterParameter: 'test')
+        input(message: 'test', id: 'test', ok: 'test', submitter: 'test', submitterParameter: 'test')
+        echo 'test'
       }
     }
   }
