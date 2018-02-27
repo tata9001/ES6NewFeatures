@@ -46,6 +46,7 @@ pipeline {
     stage('dd') {
       steps {
         echo 'cc'
+        input(message: 'test', id: 'ts', ok: 'ok', submitter: 'wy', submitterParameter: 'test')
       }
     }
   }
