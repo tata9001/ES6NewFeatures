@@ -2,8 +2,13 @@ pipeline {
   agent any
   stages {
     stage('test') {
-          steps {
-            echo 'tes2'
+      steps {
+        echo 'tes2'
+        git(url: 'test', branch: 'test', poll: true, credentialsId: 'test')
+        timeout(time: 1) {
+          sh 'e'
+        }
+        
       }
     }
     stage('push') {
@@ -32,6 +37,11 @@ pipeline {
             echo 'deploy2'
           }
         }
+        stage('t') {
+          steps {
+            sh 'te'
+          }
+        }
       }
     }
     stage('test22') {
@@ -42,7 +52,7 @@ pipeline {
             echo 'test'
           }
         }
-        stage('') {
+        stage('error') {
           steps {
             retry(count: 2) {
               echo '2'
