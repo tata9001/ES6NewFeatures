@@ -43,10 +43,22 @@ pipeline {
         }
       }
     }
-    stage('test2') {
-      steps {
-        input(message: 'test', id: 'test', ok: 'test', submitter: 'test', submitterParameter: 'test')
-        echo 'test'
+    stage('test22') {
+      parallel {
+        stage('test2') {
+          steps {
+            input(message: 'test', id: 'test', ok: 'test', submitter: 'test', submitterParameter: 'test')
+            echo 'test'
+          }
+        }
+        stage('') {
+          steps {
+            retry(count: 2) {
+              echo '2'
+            }
+            
+          }
+        }
       }
     }
   }
