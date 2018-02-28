@@ -48,7 +48,7 @@ pipeline {
       parallel {
         stage('test2') {
           steps {
-            input(message: 'test', id: 'test', ok: 'test', submitter: 'test', submitterParameter: 'test')
+            input 'test'
             echo 'test'
           }
         }
@@ -60,6 +60,14 @@ pipeline {
             
           }
         }
+      }
+    }
+    stage('ww') {
+      steps {
+        waitUntil() {
+          sh 'test'
+        }
+        
       }
     }
   }
