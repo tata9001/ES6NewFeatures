@@ -10,4 +10,7 @@ pipeline {
       }
     }
   }
+  environment {
+    a1 = 'a12'
+  }
 }
