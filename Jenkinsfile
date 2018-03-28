@@ -14,6 +14,11 @@ pipeline {
         input 'test'
       }
     }
+    stage('ee') {
+      steps {
+        echo 'test'
+      }
+    }
   }
   environment {
     a1 = 'a12'
