@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'devops'
+    }
+    
+  }
   stages {
     stage('test') {
       environment {
