@@ -1,5 +1,5 @@
 ES6NewFeatures
-================
+==================
 Introduce the ES6's new Features
 
 ### 星级说明：★★★ 推荐使用 ★★ 有考虑地使用 ★ 慎重地使用 ☆ 不使用
